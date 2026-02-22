@@ -1,6 +1,12 @@
 import pandas as pd
 import numpy as np
+import joblib
+import os
 
+
+# -------------------------------
+# Load Dataset + Validation
+# -------------------------------
 def load_data(path):
     df = pd.read_csv(path)
 
@@ -17,6 +23,9 @@ def load_data(path):
     return df
 
 
+# -------------------------------
+# Compute Metrics
+# -------------------------------
 def compute_avg_score(df):
     return df.groupby("question")["marks"].mean()
 
@@ -26,14 +35,16 @@ def compute_pass_rate(df, pass_marks=2):
     df["pass"] = df["marks"] >= pass_marks
     return df.groupby("question")["pass"].mean()
 
+
 def compute_max_marks_per_question(df):
     return df.groupby("question")["marks"].max()
+
 
 def compute_discrimination_index(df):
     student_scores = df.groupby("student_id")["marks"].sum().sort_values()
 
     n = len(student_scores)
-    k = max(1, int(0.27 * n)) 
+    k = max(1, int(0.27 * n))
 
     bottom_students = student_scores.head(k).index
     top_students = student_scores.tail(k).index
@@ -59,6 +70,9 @@ def compute_discrimination_index(df):
     return pd.Series(di_values)
 
 
+# -------------------------------
+# Question Quality Classification
+# -------------------------------
 def detect_question_quality(pass_rate, discrimination):
     quality = {}
 
@@ -66,31 +80,106 @@ def detect_question_quality(pass_rate, discrimination):
         pr = pass_rate[q]
         di = discrimination[q]
 
-        if pr > 0.85 and di < 0.20:
-            quality[q] = "Too Easy (Low Discrimination)"
-        elif pr < 0.30 and di < 0.20:
-            quality[q] = "Too Hard / Confusing"
+        if pr > 0.85:
+            quality[q] = "Too Easy"
+        elif pr < 0.30:
+            quality[q] = "Too Hard"
+        elif di < 0.15:
+            quality[q] = "Confusing / Poor Discrimination"
         elif di >= 0.40:
-            quality[q] = "Excellent Question"
-        elif di >= 0.20:
-            quality[q] = "Good Question"
+            quality[q] = "Excellent"
         else:
-            quality[q] = "Poor Question"
+            quality[q] = "Acceptable"
 
     return pd.Series(quality)
 
 
+# -------------------------------
+# Student Ranking
+# -------------------------------
 def compute_student_ranking(df):
     total_scores = df.groupby("student_id")["marks"].sum()
-    ranking = total_scores.sort_values(ascending=False)
-    return ranking
-
-def detect_learning_gaps(avg_score, threshold=0.4):
-    max_score = avg_score.max()
-    weak_questions = avg_score[avg_score < threshold * max_score]
-    return weak_questions.index.tolist()
+    return total_scores.sort_values(ascending=False)
 
 
+# -------------------------------
+# Learning Gap Detection
+# -------------------------------
+def detect_learning_gaps(pass_rate, discrimination):
+    weak_questions = []
+
+    for q in pass_rate.index:
+        if pass_rate[q] < 0.5 or discrimination[q] < 0.2:
+            weak_questions.append(q)
+
+    return weak_questions
+
+
+# -------------------------------
+# Exam Summary (JSON-safe types)
+# -------------------------------
+def generate_exam_summary(result_df):
+    total_questions = len(result_df)
+
+    summary = {
+        "total_questions": int(total_questions),
+        "excellent_questions": int((result_df["quality"] == "Excellent").sum()),
+        "too_easy": int((result_df["quality"] == "Too Easy").sum()),
+        "too_hard": int((result_df["quality"] == "Too Hard").sum()),
+        "confusing": int((result_df["quality"].str.contains("Confusing")).sum()),
+    }
+
+    summary["good_percentage"] = float(
+        round(100 * summary["excellent_questions"] / total_questions, 2)
+    )
+
+    return summary
+
+
+# -------------------------------
+# Teacher Report
+# -------------------------------
+def generate_teacher_report(summary, weak_questions):
+    report = [
+        f"Total Questions: {summary['total_questions']}",
+        f"Excellent Questions: {summary['excellent_questions']}",
+        f"Too Easy Questions: {summary['too_easy']}",
+        f"Too Hard Questions: {summary['too_hard']}",
+        f"Confusing Questions: {summary['confusing']}",
+    ]
+
+    if weak_questions:
+        report.append(f"Learning gaps detected in: {', '.join(weak_questions)}")
+    else:
+        report.append("No major learning gaps detected.")
+
+    return "\n".join(report)
+
+
+# -------------------------------
+# ML Integration (Safe)
+# -------------------------------
+def load_ml_components(model_path, vectorizer_path):
+    if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
+        print("ML model not found → skipping ML integration")
+        return None, None
+
+    model = joblib.load(model_path)
+    vectorizer = joblib.load(vectorizer_path)
+    return model, vectorizer
+
+
+def predict_ml_difficulty(question_texts, model, vectorizer):
+    if model is None or vectorizer is None:
+        return ["ML Not Available"] * len(question_texts)
+
+    X = vectorizer.transform(question_texts)
+    return model.predict(X)
+
+
+# -------------------------------
+# MAIN ANALYTICS ENGINE
+# -------------------------------
 def analyze_exam(path):
     df = load_data(path)
 
@@ -99,7 +188,7 @@ def analyze_exam(path):
     discrimination = compute_discrimination_index(df)
     quality = detect_question_quality(pass_rate, discrimination)
     ranking = compute_student_ranking(df)
-    learning_gaps = detect_learning_gaps(avg_score)
+    learning_gaps = detect_learning_gaps(pass_rate, discrimination)
 
     result = pd.DataFrame({
         "avg_score": avg_score,
@@ -108,10 +197,27 @@ def analyze_exam(path):
         "quality": quality
     })
 
+    # ---------------- ML Integration ----------------
+    model_path = "../ml/models/difficulty_model.pkl"
+    vectorizer_path = "../ml/models/vectorizer.pkl"
+
+    model, vectorizer = load_ml_components(model_path, vectorizer_path)
+
+    question_texts = result.index.astype(str).tolist()
+    ml_predictions = predict_ml_difficulty(question_texts, model, vectorizer)
+
+    result["ml_difficulty"] = ml_predictions
+
+
+    summary = generate_exam_summary(result)
+    teacher_report = generate_teacher_report(summary, learning_gaps)
+
     insights = {
+        "exam_summary": summary,
         "weak_questions": learning_gaps,
         "top_students": ranking.head(5).index.tolist(),
-        "bottom_students": ranking.tail(5).index.tolist()
+        "bottom_students": ranking.tail(5).index.tolist(),
+        "teacher_report": teacher_report
     }
 
     return result, insights
