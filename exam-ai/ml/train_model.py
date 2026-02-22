@@ -25,7 +25,7 @@ y_pred = model.predict(X_test)
 print(classification_report(y_test, y_pred))
 
 # Save model
-joblib.dump(model, "models/difficulty_model.pkl")
+joblib.dump(model, "./exam-ai/models/difficulty_model.pkl")
 joblib.dump(vectorizer, "models/vectorizer.pkl")
 
 print("Model saved!")
