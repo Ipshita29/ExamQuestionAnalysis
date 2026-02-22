@@ -3,10 +3,6 @@ import numpy as np
 import joblib
 import os
 
-
-# -------------------------------
-# Load Dataset + Validation
-# -------------------------------
 def load_data(path):
     df = pd.read_csv(path)
 
@@ -22,10 +18,6 @@ def load_data(path):
 
     return df
 
-
-# -------------------------------
-# Compute Metrics
-# -------------------------------
 def compute_avg_score(df):
     return df.groupby("question")["marks"].mean()
 
@@ -70,9 +62,6 @@ def compute_discrimination_index(df):
     return pd.Series(di_values)
 
 
-# -------------------------------
-# Question Quality Classification
-# -------------------------------
 def detect_question_quality(pass_rate, discrimination):
     quality = {}
 
@@ -94,17 +83,11 @@ def detect_question_quality(pass_rate, discrimination):
     return pd.Series(quality)
 
 
-# -------------------------------
-# Student Ranking
-# -------------------------------
 def compute_student_ranking(df):
     total_scores = df.groupby("student_id")["marks"].sum()
     return total_scores.sort_values(ascending=False)
 
 
-# -------------------------------
-# Learning Gap Detection
-# -------------------------------
 def detect_learning_gaps(pass_rate, discrimination):
     weak_questions = []
 
@@ -115,9 +98,7 @@ def detect_learning_gaps(pass_rate, discrimination):
     return weak_questions
 
 
-# -------------------------------
-# Exam Summary (JSON-safe types)
-# -------------------------------
+
 def generate_exam_summary(result_df):
     total_questions = len(result_df)
 
@@ -136,9 +117,6 @@ def generate_exam_summary(result_df):
     return summary
 
 
-# -------------------------------
-# Teacher Report
-# -------------------------------
 def generate_teacher_report(summary, weak_questions):
     report = [
         f"Total Questions: {summary['total_questions']}",
@@ -156,14 +134,16 @@ def generate_teacher_report(summary, weak_questions):
     return "\n".join(report)
 
 
-# -------------------------------
-# ML Integration (Safe)
-# -------------------------------
-def load_ml_components(model_path, vectorizer_path):
+def load_ml_components():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    model_path = os.path.join(base_dir, "..", "models", "difficulty_model.pkl")
+    vectorizer_path = os.path.join(base_dir, "..", "models", "vectorizer.pkl")
+
     if not os.path.exists(model_path) or not os.path.exists(vectorizer_path):
         print("ML model not found → skipping ML integration")
         return None, None
 
+    print("ML model loaded successfully ✔")
     model = joblib.load(model_path)
     vectorizer = joblib.load(vectorizer_path)
     return model, vectorizer
@@ -176,10 +156,6 @@ def predict_ml_difficulty(question_texts, model, vectorizer):
     X = vectorizer.transform(question_texts)
     return model.predict(X)
 
-
-# -------------------------------
-# MAIN ANALYTICS ENGINE
-# -------------------------------
 def analyze_exam(path):
     df = load_data(path)
 
@@ -197,15 +173,13 @@ def analyze_exam(path):
         "quality": quality
     })
 
-    # ---------------- ML Integration ----------------
-    model_path = "./models/difficulty_model.pkl"
-    vectorizer_path = "./models/vectorizer.pkl"
+    model, vectorizer = load_ml_components()
 
-    model, vectorizer = load_ml_components(model_path, vectorizer_path)
-
+    # NOTE: Currently using question IDs as placeholder.
+    # Replace with real question text mapping if available.
     question_texts = result.index.astype(str).tolist()
-    ml_predictions = predict_ml_difficulty(question_texts, model, vectorizer)
 
+    ml_predictions = predict_ml_difficulty(question_texts, model, vectorizer)
     result["ml_difficulty"] = ml_predictions
 
 
