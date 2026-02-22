@@ -5,7 +5,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
 import joblib
 
-df = pd.read_csv("data/labeled_questions.csv")
+df = pd.read_csv("./exam-ai/data/labeled_questions.csv")
 df["text"] = df["Title"] + " " + df["Body"]
 
 X = df["text"]
