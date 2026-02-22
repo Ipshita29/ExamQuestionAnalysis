@@ -198,8 +198,8 @@ def analyze_exam(path):
     })
 
     # ---------------- ML Integration ----------------
-    model_path = "../ml/models/difficulty_model.pkl"
-    vectorizer_path = "../ml/models/vectorizer.pkl"
+    model_path = "./models/difficulty_model.pkl"
+    vectorizer_path = "./models/vectorizer.pkl"
 
     model, vectorizer = load_ml_components(model_path, vectorizer_path)
 
