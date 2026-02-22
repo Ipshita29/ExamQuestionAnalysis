@@ -1,7 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("data/sample_questions.csv")
-
+df = pd.read_csv("./exam-ai/data/Questions.csv", encoding="latin1")
 # temporary defaults for missing columns
 df['AnswerCount'] = 0
 df['ViewCount'] = 0
@@ -23,5 +22,5 @@ def assign_difficulty(row):
 
 df['Difficulty'] = df.apply(assign_difficulty, axis=1)
 
-df.to_csv("data/labeled_questions.csv", index=False)
+df.to_csv("./exam-ai/data/labeled_questions.csv", index=False)
 print("Improved difficulty labels created → data/labeled_questions.csv")
