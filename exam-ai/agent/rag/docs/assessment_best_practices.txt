@@ -1,0 +1,43 @@
+ASSESSMENT BEST PRACTICES — DESIGN, REVIEW AND FEEDBACK
+
+CONSTRUCTIVE ALIGNMENT:
+- Every exam question must align with a stated learning outcome (LO).
+- Each LO should be assessed by at least one question; no orphan questions.
+- Marking schemes (rubrics) must be created before the exam is administered.
+
+QUESTION WRITING GUIDELINES:
+1. Use clear, unambiguous language appropriate for the course level.
+2. Avoid negatives (especially double negatives) in stems.
+3. Each question should measure one construct only.
+4. Provide sufficient context but avoid irrelevant information (cueing).
+5. Test application / higher-order thinking rather than pure recall wherever possible.
+6. For short-answer questions: specify expected length and format in the prompt.
+7. For essays: provide a clear rubric with weighted criteria.
+
+ADDRESSING LEARNING GAPS:
+- A learning gap exists when a significant proportion of students fail a question (pass rate < 0.50).
+- Gaps indicate either poor instruction of the concept or a poorly written question.
+- Remediation steps:
+  a. Conduct error analysis — identify the most common wrong answers.
+  b. Provide targeted feedback to students on the specific concept.
+  c. Revise teaching strategy for that topic in the next cohort.
+  d. If multiple questions show gaps in the same topic area, prioritize that topic.
+
+ITERATIVE ASSESSMENT IMPROVEMENT CYCLE:
+1. Design: align questions to LOs and Bloom's levels.
+2. Review: peer review by a colleague before administration.
+3. Administer: give students clear instructions and time.
+4. Analyse: compute pass rate, DI, and Bloom's distribution post-exam.
+5. Revise: update item bank based on analysis.
+6. Repeat: track item performance over multiple cohorts.
+
+HANDLING NOISY OR INCOMPLETE DATA:
+- Missing marks: treat as absent (do not impute with zero or mean).
+- Outlier scores: verify data entry before removing; document removal.
+- Small cohorts (n < 30): DI estimates are unstable; interpret cautiously.
+- If question text is unavailable, use question ID as placeholder but flag in report.
+
+EQUITABLE ASSESSMENT:
+- Review questions for cultural bias and accessibility.
+- Offer reasonable accommodations (e.g., extra time) where appropriate.
+- Ensure marking is blinded where possible to reduce marker bias.

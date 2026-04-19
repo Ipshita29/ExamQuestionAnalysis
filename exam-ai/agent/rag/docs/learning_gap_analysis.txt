@@ -1,0 +1,42 @@
+LEARNING GAP ANALYSIS — IDENTIFICATION AND REMEDIATION
+
+WHAT IS A LEARNING GAP?
+A learning gap is the difference between what students are expected to know and what they actually
+demonstrate in an assessment. Gaps manifest as clusters of low-performing questions on a specific
+topic or cognitive level.
+
+IDENTIFYING LEARNING GAPS IN ASSESSMENT DATA:
+1. Question-level pass rate < 0.50 is a primary signal.
+2. Discrimination index < 0.20 combined with low pass rate confirms a systemic gap.
+3. Clustering: if multiple questions in the same topic have low pass rates, the gap is topic-wide.
+4. Student-level analysis: if the same subset of students consistently underperforms, the gap may
+   be socioeconomic, linguistic, or prerequisite-knowledge-related.
+
+TYPES OF LEARNING GAPS:
+- Knowledge Gap: students lack factual or conceptual knowledge (target with re-teaching).
+- Skill Gap: students understand theory but cannot apply it (target with practice problems).
+- Metacognitive Gap: students have knowledge but poor exam technique (target with exam skill
+  workshops).
+- Motivation Gap: students disengage; requires pastoral intervention.
+
+REMEDIATION STRATEGIES:
+For Knowledge Gaps:
+  - Revisit concept in the next lecture using a different modality (visual, worked example).
+  - Provide annotated reading lists or summary notes.
+  - Use retrieval practice (low-stakes quizzes) before the next major assessment.
+
+For Skill Gaps:
+  - Introduce scaffolded practice tasks that gradually remove support.
+  - Use think-aloud demonstrations during tutorials.
+  - Encourage peer teaching and group problem-solving.
+
+For Metacognitive Gaps:
+  - Share sample answers and marking criteria with students.
+  - Run mock exams with structural feedback.
+  - Teach time management and question-reading strategies.
+
+USING ASSESSMENT DATA TO CLOSE GAPS:
+- Share anonymised question-level performance data with students after marking.
+- Offer optional revision sessions targeting the bottom 3 questions by pass rate.
+- Set formative assessment tasks specifically targeting identified gap areas.
+- Track gap closure across successive cohorts; if a gap persists, revise curriculum.

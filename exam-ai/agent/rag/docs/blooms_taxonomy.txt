@@ -1,0 +1,33 @@
+BLOOMS TAXONOMY AND ASSESSMENT DESIGN
+
+Bloom's Taxonomy provides a hierarchical framework for categorizing educational objectives. It is widely
+used to design assessments that measure different cognitive levels.
+
+LEVELS (from lowest to highest order):
+1. Remember — Recall facts and basic concepts (define, list, identify)
+2. Understand — Explain ideas or concepts (describe, summarize, classify)
+3. Apply — Use information in new situations (solve, demonstrate, use)
+4. Analyze — Draw connections among ideas (differentiate, organize, compare)
+5. Evaluate — Justify a decision or course of action (argue, defend, critique)
+6. Create — Produce new or original work (design, construct, plan)
+
+ASSESSMENT DESIGN PRINCIPLES:
+- A well-balanced exam should cover multiple Bloom's levels. Over-reliance on Remember/Understand
+  leads to surface learning and poor discrimination.
+- Higher-order questions (Analyze, Evaluate, Create) tend to have lower pass rates but higher
+  discrimination indices, which is desirable.
+- Questions should map clearly to learning objectives stated in the course syllabus.
+- Avoid ambiguous wording; it increases construct-irrelevant variance.
+
+DIFFICULTY DISTRIBUTION BEST PRACTICE:
+- Easy (pass rate > 0.85): should comprise no more than 15% of total marks.
+- Hard (pass rate < 0.30): should comprise no more than 20% of total marks.
+- Medium: the bulk (60-70%) of the assessment.
+- Aim for an overall mean score between 55% and 70% for a balanced exam.
+
+ITEM IMPROVEMENT GUIDELINES:
+- Too Easy question: raise cognitive level, add constraints, increase specificity.
+- Too Hard question: break into sub-questions, provide scaffolded hints, revise language clarity.
+- Confusing/Poor Discrimination question: review distractors (for MCQ), check for double-barrelled
+  wording, pilot with a focus group.
+- Excellent question: preserve and reuse in future assessments as an anchor item.

@@ -1,0 +1,41 @@
+PSYCHOMETRIC PRINCIPLES FOR EXAM QUALITY
+
+RELIABILITY:
+Reliability refers to the consistency of an assessment. A reliable exam produces similar results
+under consistent conditions.
+
+Types of reliability:
+- Internal consistency (Cronbach's Alpha): measures whether items in the exam correlate with each
+  other. Alpha >= 0.70 is acceptable; >= 0.80 is good for high-stakes exams.
+- Test-retest reliability: same students get similar scores on re-administration.
+- Inter-rater reliability: different markers give similar scores (especially for essays/open-ended).
+
+Improving reliability:
+- Use more items (longer tests are generally more reliable).
+- Use clear marking rubrics.
+- Standardize exam conditions.
+- Remove items with very low or negative discrimination indices.
+
+VALIDITY:
+Validity is the degree to which the exam measures what it claims to measure.
+
+Types of validity:
+- Content validity: does the exam cover the full range of learning outcomes?
+- Construct validity: are the questions actually testing the intended cognitive skills?
+- Criterion validity: do scores predict future performance or real-world competence?
+
+Improving validity:
+- Map each question explicitly to a learning outcome and Bloom's level.
+- Involve subject experts in question review.
+- Review pass rate and DI data to identify questions with validity concerns.
+
+STANDARD ERROR OF MEASUREMENT (SEM):
+SEM estimates the precision of individual scores. Lower SEM = more precise.
+Formula: SEM = SD * sqrt(1 - reliability)
+Use SEM to set grade boundaries with appropriate confidence intervals.
+
+GRADE BOUNDARY SETTING:
+- Use criterion-referenced (not norm-referenced) standards where possible.
+- Set boundaries based on what a minimally competent student should achieve.
+- Conduct standard-setting exercises (e.g., Angoff method) for high-stakes exams.
+- Document and justify boundary decisions for accountability.
