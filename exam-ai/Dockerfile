@@ -22,8 +22,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copy project files
 COPY . .
 
-# Expose port
+# Expose port (Render provides $PORT at runtime)
 EXPOSE 10000
 
 # Start FastAPI app
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "10000"]
+CMD ["sh", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-10000}"]
